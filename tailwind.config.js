@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        green: "#06F108"
+        shellGreen: "#06F108",
+        vueGreen: "#42B983"
       }
     }
   },

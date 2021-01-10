@@ -1,23 +1,60 @@
 import React, {FC, useState, ChangeEvent, useRef, useEffect} from 'react'
 import Head from 'next/head'
 import {Terminal} from "../components/terminal";
+import {Directory} from "../components/status/directory";
+import style from "../../styles/Home.module.css"
+import {CommandService} from "../../service/commandService";
+import {DirService} from "../../service/dirService";
+
+const dirs = require("@/public/data/dir.json")
+
+const dirService = new DirService()
 
 const Home: FC = () => {
-  const [key, setKey] = useState("")
   const [change, setChange] = useState("")
   const [logs, setLogs] = useState([])
+  const [replies, setReplies] = useState([])
+  const [dir, setDir] = useState([])
 
   const cursor = useRef(null)
+  const bottom = useRef(null)
+  const directory = useRef(null)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setChange(e.target.value)
   }
 
+  const handleDir = (commands: string) => {
+    const command = commands.split(" ")
+    if (!command) {
+      return
+    }
+    if (command[0] == "cd" && command.length == 2) {
+      if (command[1] == ".." && dir.length !== 0) {
+        const rmArr = [...dir]
+        rmArr.pop()
+        setDir(rmArr)
+      }
+      if (Object.keys(dirs).indexOf(command[1]) !== -1) {
+        setDir([...dir, command[1]])
+      }
+    }
+  }
+
+  const commandService = new CommandService()
   const onEnter = (e: any) => {
     if (e.code == "Enter") {
-      setKey(e.target.value)
+      // コマンド処理
+      const res = commandService.handler(change)
+      setReplies([...replies, res])
+      // ディレクトリの処理
+      handleDir(change)
+      directory.current.setDir()
+      // ログの追加
+      setLogs([...logs, {command: change, dir: dir}])
+      dirService.retLs(dir)
+      // クリア
       setChange("")
-      setLogs([...logs, change])
     }
   }
 
@@ -27,6 +64,7 @@ const Home: FC = () => {
 
   useEffect(() => {
     cursor.current.focus()
+    bottom.current.scrollIntoView({behavior: "smooth"})
   })
   return(
     <div onClick={anyWhereClick}>
@@ -34,29 +72,50 @@ const Home: FC = () => {
         <title>Home</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
-      <div className="container mx-auto text-green text-xl tracking-widest">
+      <div className="container mx-auto text-shellGreen text-xl tracking-widest">
         <Terminal>
-          <div className="py-3">
-            <span>ようこそ、わいのポートフォリオへ</span>
-          </div>
-          {logs.map(log => (
-            <span className="flex">
-              <p className="pr-3">{"[kazuyan >]"}</p>
-              <p>{log}</p>
+          <div className="relative">
+            <div className="py-3">
+              <span>ようこそ、わいのポートフォリオへ</span>
+            </div>
+            {logs.map((log: {command: string, dir: string[]}, idx: number) => (
+              <span key={idx}>
+                <span className="flex text-lg" id={`${idx}`}>
+                  <p className="text-white bg-vueGreen bg-opacity-50 leading-6 px-1 rounded-sm">kazuyan</p>
+                  <span className="relative">
+                    <div className={style.rightArrow} />
+                  </span>
+                  <Directory commands={log.dir}/>
+                  {/*<p className="text-white pr-3 pl-6 bg-opacity-80 bg-gray-500 rounded-r-sm">hoge</p>*/}
+                  <span className="relative mr-7">
+                    <div className={style.rightArrow} />
+                  </span>
+                  <p>{log.command}</p>
+                </span>
+                {replies[idx]}
+              </span>
+            ))}
+            <span className="flex text-lg" id="hge">
+              <p className="text-white bg-vueGreen bg-opacity-50 leading-6 px-1 rounded-l-sm">kazuyan</p>
+              <span className="relative">
+                <div className={style.rightArrow} />
+              </span>
+              <Directory ref={directory} commands={dir}/>
+              <span className="relative mr-7">
+                <div className={style.rightArrow} />
+              </span>
+              <input
+                autoComplete="off"
+                ref={cursor}
+                className="bg-transparent focus-within:outline-none tracking-widest w-1/2 sm:w-3/4"
+                type="text"
+                value={change}
+                onChange={handleChange}
+                onKeyPress={e => onEnter(e)}
+              />
             </span>
-          ))}
-          <span className="flex">
-            <p className="pr-3">{"[kazuyan >]"}</p>
-            <input
-              autoComplete="off"
-              ref={cursor}
-              className="bg-transparent focus-within:outline-none tracking-widest"
-              type="text"
-              value={change}
-              onChange={handleChange}
-              onKeyPress={e => onEnter(e)}
-            />
-          </span>
+            <div ref={bottom} style={{ float:"left", clear: "both" }}/>
+          </div>
         </Terminal>
       </div>
     </div>
