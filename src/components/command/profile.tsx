@@ -2,8 +2,8 @@ import {FC} from "react"
 
 export const Profile: FC = () => {
   return (
-    <div className="text-center p-4">
-      <div className="grid grid-cols-2">
+    <div className="sm:text-center p-4">
+      <div className="block sm:grid sm:grid-cols-2 sm:text-lg text-md">
         <p>
           <span className="pr-5">
             Name:
@@ -14,7 +14,7 @@ export const Profile: FC = () => {
           <span className="pr-5">
             Organizations:
           </span>
-          <span className="text-lg">
+          <span className="sm:text-lg text-sm">
             Doshisha.univ / chatbox-inc
           </span>
         </p>

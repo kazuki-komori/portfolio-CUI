@@ -4,7 +4,7 @@ export const ActiveCommand: FC = () => {
   return (
     <div className="border-dashed border-2 border-shellGreen rounded-lg p-2 mb-4">
       <span>使用可能なコマンド一覧</span>
-      <section className="grid grid-cols-6 text-center">
+      <section className="grid sm:grid-cols-6 text-center grid-cols-3">
         <p>links</p>
         <p>profile</p>
         <p>ls</p>
