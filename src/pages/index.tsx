@@ -7,6 +7,7 @@ import {CommandService} from "../../service/commandService";
 import {DirService} from "../../service/dirService";
 
 import dirs from "../../public/data/dir.json"
+import {ActiveCommand} from "../components/command/activeCommand";
 
 const dirService = new DirService()
 
@@ -50,11 +51,16 @@ const Home: FC = () => {
     if (e.code == "Enter") {
       // コマンド処理
       const res = commandService.handler(change, ls)
-      setReplies([...replies, res])
-      // ディレクトリの処理
-      handleDir(change)
-      // ログの追加
-      setLogs([...logs, {command: change, dir: dir}])
+      if (res == "CA") {
+        setReplies([])
+        setLogs([])
+      } else {
+        setReplies([...replies, res])
+        // ディレクトリの処理
+        handleDir(change)
+        // ログの追加
+        setLogs([...logs, {command: change, dir: dir}])
+      }
       // クリア
       setChange("")
     }
@@ -80,6 +86,7 @@ const Home: FC = () => {
             <div className="py-3">
               <span>ようこそ、kazuyanのポートフォリオへ</span>
             </div>
+            <ActiveCommand/>
             {logs.map((log: {command: string, dir: string[]}, idx: number) => (
               <span key={idx}>
                 <span className="flex text-lg" id={`${idx}`}>

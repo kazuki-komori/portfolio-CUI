@@ -1,4 +1,8 @@
 const products = require("@/public/data/products.json")
+import {Links} from "../src/components/command/links"
+import {Ls} from "../src/components/command/ls"
+import {Profile} from "../src/components/command/profile";
+import {Neko} from "../src/components/command/neko";
 
 interface product {name: string, description: string, link: string}
 
@@ -16,14 +20,26 @@ export class CommandService {
     if (!command[0]) {
       return ""
     }
+    // 直コマンド
     if (command[0] === "links" && command.length == 1) {
       return this.Links()
     }
+    if (command[0] === "profile" && command.length == 1) {
+      return this.Profile()
+    }
+    // UNIXコマンド
     if (command[0] === "ls" && command.length == 1) {
       return this.Ls(ls)
     }
     if (command[0] === "cd" && command.length == 2) {
       return this.Cd(ls, command)
+    }
+    // 隠しコマンド
+    if (command[0] === "neko" && command.length == 1) {
+      return this.Neko()
+    }
+    if (command[0] === "clear" && command.length == 1) {
+      return "CA"
     }
     return this.CommandNotFound(command[0])
   }
@@ -36,21 +52,13 @@ export class CommandService {
 
   Links = () => {
     return (
-      <div className="text-center text-blue-400 grid grid-cols-6 p-5">
-        <a className="hover:text-blue-300 duration-300 transition" href="https://github.com/kazuki-komori" target="_blank">Github</a>
-        <a className="hover:text-blue-300 duration-300 transition" href="https://twitter.com/D_kazuyan" target="_blank">Twitter</a>
-        <a className="hover:text-blue-300 duration-300 transition" href="https://www.wantedly.com/id/D_kazuyan" target="_blank">Wantedly</a>
-      </div>
+      <Links/>
     )
   }
 
   Ls = (ls: string[]) => {
     return (
-      <div className="text-center grid grid-cols-6 p-5">
-        {ls.map((dir: string, idx: number) => (
-          <p key={idx}>{dir}/</p>
-        ))}
-      </div>
+      <Ls ls={ls}/>
     )
   }
 
@@ -60,5 +68,17 @@ export class CommandService {
         <p className="pb-1">{`No such file or directory...`}</p>
       )
     }
+  }
+
+  Profile = () => {
+    return (
+      <Profile/>
+    )
+  }
+
+  Neko = () => {
+    return (
+      <Neko/>
+    )
   }
 }
