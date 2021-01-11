@@ -2,6 +2,9 @@
 
 :warning: 現在開発中です！
 
+## デプロイ先(vercel)
+https://kazuyan-cui.vercel.app/
+
 ## セットアップ
 
 ### 依存関係のインストール
@@ -17,6 +20,11 @@ npm run doc
 npm run dev
 ```
 `http://localhost:3000` でサーバーが立ち上がります。
+
+### デプロイ
+```bash
+npm run deploy
+```
 
 ## 開発環境
 ```
