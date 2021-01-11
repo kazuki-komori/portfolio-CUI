@@ -48,7 +48,7 @@ const Home: FC = () => {
 
   const commandService = new CommandService()
   const onEnter = (e: any) => {
-    if (e.code == "Enter") {
+    if (e.charCode == 13) {
       // コマンド処理
       const res = commandService.handler(change, ls)
       if (res == "CA") {
