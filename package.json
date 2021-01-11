@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "deploy": "npm run doc && npm run build",
     "doc": "run-p doc:*",
     "doc:products": "json-refs resolve -w documents/data/products.yml > public/data/products.json",
     "doc:dir": "json-refs resolve -w documents/data/dir.yml > public/data/dir.json"
