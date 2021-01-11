@@ -33,6 +33,11 @@ Next.js: 10.x
 node: 12.x
 TypeScript: 4.1.3
 ```
+
+### 参考
+[@uzimaru0000さん](https://github.com/uzimaru0000)のポートフォリオよりアイデアを頂いております
+https://uzimaru.com/
+
 ### 開発者
 [kazuki-komori](https://github.com/kazuki-komori)
 
