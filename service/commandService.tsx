@@ -1,6 +1,8 @@
 import Link from "next/link"
 const products = require("@/public/data/products.json")
 const dirs = require("@/public/data/dir.json")
+import {DirService} from "./dirService";
+
 interface product {name: string, description: string, link: string}
 
 export class CommandService {
@@ -12,7 +14,7 @@ export class CommandService {
       products: products,
     }
   }
-  handler = (commandBlock: string) => {
+  handler = (commandBlock: string, ls: string[]) => {
     const command = commandBlock.split( " ")
     if (!command[0]) {
       return ""
@@ -21,7 +23,7 @@ export class CommandService {
       return this.Links()
     }
     if (command[0] === "ls" && command.length == 1) {
-      return this.Ls()
+      return this.Ls(ls)
     }
     if (command[0] === "cd" && command.length == 2) {
       return ""
@@ -45,10 +47,10 @@ export class CommandService {
     )
   }
 
-  Ls = () => {
+  Ls = (ls: string[]) => {
     return (
       <div className="text-center grid grid-cols-6 p-5">
-        {Object.keys(this.dirs).map((dir: string, idx: number) => (
+        {ls.map((dir: string, idx: number) => (
           <p key={idx}>{dir}/</p>
         ))}
       </div>

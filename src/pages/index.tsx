@@ -6,15 +6,17 @@ import style from "../../styles/Home.module.css"
 import {CommandService} from "../../service/commandService";
 import {DirService} from "../../service/dirService";
 
-const dirs = require("@/public/data/dir.json")
+import dirs from "../../public/data/dir.json"
 
 const dirService = new DirService()
 
 const Home: FC = () => {
+  const stateDirs: string[] = Object.keys(dirs)
   const [change, setChange] = useState("")
   const [logs, setLogs] = useState([])
   const [replies, setReplies] = useState([])
   const [dir, setDir] = useState([])
+  const [ls, setLs] = useState(stateDirs)
 
   const cursor = useRef(null)
   const bottom = useRef(null)
@@ -34,9 +36,11 @@ const Home: FC = () => {
         const rmArr = [...dir]
         rmArr.pop()
         setDir(rmArr)
+        setLs(dirService.retLs(rmArr))
       }
-      if (Object.keys(dirs).indexOf(command[1]) !== -1) {
+      if (ls.indexOf(command[1]) !== -1) {
         setDir([...dir, command[1]])
+        setLs(dirService.retLs([...dir, command[1]]))
       }
     }
   }
@@ -45,14 +49,12 @@ const Home: FC = () => {
   const onEnter = (e: any) => {
     if (e.code == "Enter") {
       // コマンド処理
-      const res = commandService.handler(change)
+      const res = commandService.handler(change, ls)
       setReplies([...replies, res])
       // ディレクトリの処理
       handleDir(change)
-      directory.current.setDir()
       // ログの追加
       setLogs([...logs, {command: change, dir: dir}])
-      dirService.retLs(dir)
       // クリア
       setChange("")
     }

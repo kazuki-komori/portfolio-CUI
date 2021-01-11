@@ -1,7 +1,17 @@
 import {DirService} from "../../service/dirService";
 
-describe("hoge", () => {
-  test("hoge", () => {
-    expect(1).toBe(1)
+describe("retLsのテスト", () => {
+  const dir = new DirService()
+
+  test("rootディレクトリのとき", () => {
+    expect(["products"]).toStrictEqual(dir.retLs([]))
+  })
+
+  test("productsディレクトリのとき", () => {
+    expect(["profill"]).toStrictEqual(dir.retLs(["products"]))
+  })
+
+  test("profillディレクトリのとき", () => {
+    expect([]).toStrictEqual(dir.retLs(["profill"]))
   })
 })
