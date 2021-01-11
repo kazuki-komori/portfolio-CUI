@@ -1,7 +1,4 @@
-import Link from "next/link"
 const products = require("@/public/data/products.json")
-const dirs = require("@/public/data/dir.json")
-import {DirService} from "./dirService";
 
 interface product {name: string, description: string, link: string}
 
@@ -26,7 +23,7 @@ export class CommandService {
       return this.Ls(ls)
     }
     if (command[0] === "cd" && command.length == 2) {
-      return ""
+      return this.Cd(ls, command)
     }
     return this.CommandNotFound(command[0])
   }
@@ -55,5 +52,13 @@ export class CommandService {
         ))}
       </div>
     )
+  }
+
+  Cd = (ls: string[], command: string[]) => {
+    if (ls.indexOf(command[1]) == -1) {
+      return (
+        <p className="pb-1">{`No such file or directory...`}</p>
+      )
+    }
   }
 }

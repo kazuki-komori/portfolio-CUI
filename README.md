@@ -1,6 +1,7 @@
 ## Portfolio CLI mode
 
 :warning: 現在開発中です！
+バグは issue を立てて頂けると助かります！
 
 ## デプロイ先(vercel)
 https://kazuyan-cui.vercel.app/

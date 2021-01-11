@@ -71,14 +71,14 @@ const Home: FC = () => {
   return(
     <div onClick={anyWhereClick}>
       <Head>
-        <title>Home</title>
+        <title>$ kazuyan</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <div className="container mx-auto text-shellGreen text-xl tracking-widest">
         <Terminal>
           <div className="relative">
             <div className="py-3">
-              <span>ようこそ、わいのポートフォリオへ</span>
+              <span>ようこそ、kazuyanのポートフォリオへ</span>
             </div>
             {logs.map((log: {command: string, dir: string[]}, idx: number) => (
               <span key={idx}>
@@ -88,7 +88,6 @@ const Home: FC = () => {
                     <div className={style.rightArrow} />
                   </span>
                   <Directory commands={log.dir}/>
-                  {/*<p className="text-white pr-3 pl-6 bg-opacity-80 bg-gray-500 rounded-r-sm">hoge</p>*/}
                   <span className="relative mr-7">
                     <div className={style.rightArrow} />
                   </span>
