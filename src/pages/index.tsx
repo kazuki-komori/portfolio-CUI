@@ -69,7 +69,7 @@ const Home: FC = () => {
     bottom.current.scrollIntoView({behavior: "smooth"})
   })
   return(
-    <div onClick={anyWhereClick}>
+    <div onClick={anyWhereClick} className="bg-desktop-img bg-cover">
       <Head>
         <title>$ kazuyan</title>
         <link rel="icon" href="/favicon.ico"/>

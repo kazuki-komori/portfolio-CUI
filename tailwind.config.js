@@ -7,7 +7,10 @@ module.exports = {
       colors: {
         shellGreen: "#06F108",
         vueGreen: "#42B983"
-      }
+      },
+      backgroundImage: theme => ({
+        "desktop-img": "url('/background.png')"
+      })
     }
   },
   variants: {
