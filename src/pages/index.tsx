@@ -32,8 +32,13 @@ const Home: FC = () => {
     if (!command) {
       return
     }
+    if (command[0] == "cd" && command.length == 1) {
+      setDir([])
+      setLs(dirService.retLs([]))
+    }
     if (command[0] == "cd" && command.length == 2) {
-      if (command[1] == ".." && dir.length !== 0) {
+      const arrowCommands: string[] = ["..", "../"]
+      if (arrowCommands.indexOf(command[1]) !== -1 && dir.length !== 0) {
         const rmArr = [...dir]
         rmArr.pop()
         setDir(rmArr)
@@ -84,7 +89,8 @@ const Home: FC = () => {
         <Terminal>
           <div className="relative">
             <div className="py-3">
-              <span>ようこそ、kazuyanのポートフォリオへ</span>
+              <span className="block text-sm">last updated: 2021/1/13 1:40</span>
+              <span className="block sm:text-xl text-sm">ようこそ、kazuyanのポートフォリオへ</span>
             </div>
             <ActiveCommand/>
             {logs.map((log: {command: string, dir: string[]}, idx: number) => (

@@ -31,7 +31,7 @@ export class CommandService {
     if (command[0] === "ls" && command.length == 1) {
       return this.Ls(ls)
     }
-    if (command[0] === "cd" && command.length == 2) {
+    if (command[0] === "cd" && command.length <= 2) {
       return this.Cd(ls, command)
     }
     // 隠しコマンド
@@ -63,7 +63,8 @@ export class CommandService {
   }
 
   Cd = (ls: string[], command: string[]) => {
-    if (ls.indexOf(command[1]) == -1 && command[1] !== "..") {
+    const allowCommands = ["..", "../"]
+    if ([...allowCommands, ...ls].indexOf(command[1]) == -1 && command.length != 1) {
       return (
         <p className="pb-1">{`No such file or directory...`}</p>
       )
