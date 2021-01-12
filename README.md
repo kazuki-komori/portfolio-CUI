@@ -36,10 +36,22 @@ TypeScript: 4.1.3
 
 ### 参考
 [@uzimaru0000さん](https://github.com/uzimaru0000)のポートフォリオよりアイデアを頂いております
+
 https://uzimaru.com/
+
+### Contributors
+バグの報告や, アイデアをくださった方々を掲載しています (順不同)
+
+
+[![](https://github.com/remarkablemark.png?size=50)](https://github.com/remarkablemark)
+![][tame]
+
 
 ### 開発者
 [kazuki-komori](https://github.com/kazuki-komori)
 
 ### ライセンス
 MIT
+
+<!--contributors>
+[tame]: https://avatars2.githubusercontent.com/u/46603895?s=400&u=092cdd8319577f3e8263590829abae176739d549&v=4
