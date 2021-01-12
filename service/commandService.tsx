@@ -63,7 +63,7 @@ export class CommandService {
   }
 
   Cd = (ls: string[], command: string[]) => {
-    if (ls.indexOf(command[1]) == -1) {
+    if (ls.indexOf(command[1]) == -1 && command[1] !== "..") {
       return (
         <p className="pb-1">{`No such file or directory...`}</p>
       )
