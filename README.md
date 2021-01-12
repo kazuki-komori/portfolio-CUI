@@ -42,9 +42,12 @@ https://uzimaru.com/
 ### Contributors
 バグの報告や, アイデアをくださった方々を掲載しています (順不同)
 
-
-[![](https://github.com/remarkablemark.png?size=50)](https://github.com/remarkablemark)
-![][tame]
+[![][tamemoto]](https://github.com/tamemoto)
+[![][eggplants]](https://github.com/eggplants)
+[![][75asa]](https://github.com/75asa)
+[![][harukitosa]](https://github.com/harukitosa)
+[![][mmmommm]](https://github.com/mmmommm)
+[![][KazuwoKiwame12]](https://github.com/KazuwoKiwame12)
 
 
 ### 開発者
@@ -53,5 +56,10 @@ https://uzimaru.com/
 ### ライセンス
 MIT
 
-<!--contributors>
-[tame]: https://avatars2.githubusercontent.com/u/46603895?s=400&u=092cdd8319577f3e8263590829abae176739d549&v=4
+<!--contributors-->
+[tamemoto]:https://github.com/tamemoto.png?size=50
+[eggplants]:https://github.com/eggplants.png?size=50
+[75asa]:https://github.com/75asa.png?size=50
+[harukitosa]:https://github.com/harukitosa.png?size=50
+[mmmommm]:https://github.com/mmmommm.png?size=50
+[KazuwoKiwame12]:https://github.com/KazuwoKiwame12.png?size=50
