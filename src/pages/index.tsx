@@ -8,6 +8,7 @@ import {DirService} from "../../service/dirService";
 
 import dirs from "../../public/data/dir.json"
 import {ActiveCommand} from "../components/command/activeCommand";
+import {Loader} from "../components/loader";
 
 const dirService = new DirService()
 
@@ -18,6 +19,7 @@ const Home: FC = () => {
   const [replies, setReplies] = useState([])
   const [dir, setDir] = useState([])
   const [ls, setLs] = useState(stateDirs)
+  const [isLoading, onLoad] = useState(true)
 
   const cursor = useRef(null)
   const bottom = useRef(null)
@@ -76,60 +78,67 @@ const Home: FC = () => {
   }
 
   useEffect(() => {
-    cursor.current.focus()
-    bottom.current.scrollIntoView({behavior: "smooth"})
+    cursor?.current?.focus()
+    bottom?.current?.scrollIntoView({behavior: "smooth"})
   })
   return(
-    <div onClick={anyWhereClick} className="bg-desktop-img bg-cover">
+    <div onClick={anyWhereClick}>
       <Head>
         <title>$ kazuyan</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <div className="container mx-auto text-shellGreen text-xl tracking-widest">
         <Terminal>
-          <div className="relative">
-            <div className="py-3">
-              <span className="block text-sm">last updated: 2021/1/13 1:40</span>
-              <span className="block sm:text-xl text-sm">ようこそ、kazuyanのポートフォリオへ</span>
-            </div>
-            <ActiveCommand/>
-            {logs.map((log: {command: string, dir: string[]}, idx: number) => (
-              <span key={idx}>
-                <span className="flex text-lg" id={`${idx}`}>
-                  <p className="text-white bg-vueGreen bg-opacity-50 leading-6 px-1 rounded-sm">kazuyan</p>
-                  <span className="relative">
-                    <div className={style.rightArrow} />
+          <Loader onLoad={onLoad} isLoading={isLoading} />
+          {(() => {
+            if (!isLoading) {
+              return (
+                <div className="relative">
+                  <div className="py-3">
+                    <span className="block text-sm">last updated: 2021/1/22 10:30</span>
+                    <span className="block sm:text-xl text-sm">ようこそ、kazuyanのポートフォリオへ</span>
+                  </div>
+                  <ActiveCommand/>
+                  {logs.map((log: {command: string, dir: string[]}, idx: number) => (
+                    <span key={idx}>
+                      <span className="flex text-lg" id={`${idx}`}>
+                        <p className="text-white bg-vueGreen bg-opacity-50 leading-6 px-1 rounded-sm">kazuyan</p>
+                        <span className="relative">
+                          <div className={style.rightArrow} />
+                        </span>
+                        <Directory commands={log.dir}/>
+                        <span className="relative mr-7">
+                          <div className={style.rightArrow} />
+                        </span>
+                        <p>{log.command}</p>
+                      </span>
+                      {replies[idx]}
+                    </span>
+                  ))}
+                  <span className="flex text-lg" id="hge">
+                    <p className="text-white bg-vueGreen bg-opacity-50 leading-6 px-1 rounded-l-sm">kazuyan</p>
+                    <span className="relative">
+                      <div className={style.rightArrow} />
+                    </span>
+                    <Directory ref={directory} commands={dir}/>
+                    <span className="relative mr-7">
+                      <div className={style.rightArrow} />
+                    </span>
+                    <input
+                      autoComplete="off"
+                      ref={cursor}
+                      className="bg-transparent focus-within:outline-none tracking-widest w-1/2 sm:w-3/4"
+                      type="text"
+                      value={change}
+                      onChange={handleChange}
+                      onKeyPress={e => onEnter(e)}
+                    />
                   </span>
-                  <Directory commands={log.dir}/>
-                  <span className="relative mr-7">
-                    <div className={style.rightArrow} />
-                  </span>
-                  <p>{log.command}</p>
-                </span>
-                {replies[idx]}
-              </span>
-            ))}
-            <span className="flex text-lg" id="hge">
-              <p className="text-white bg-vueGreen bg-opacity-50 leading-6 px-1 rounded-l-sm">kazuyan</p>
-              <span className="relative">
-                <div className={style.rightArrow} />
-              </span>
-              <Directory ref={directory} commands={dir}/>
-              <span className="relative mr-7">
-                <div className={style.rightArrow} />
-              </span>
-              <input
-                autoComplete="off"
-                ref={cursor}
-                className="bg-transparent focus-within:outline-none tracking-widest w-1/2 sm:w-3/4"
-                type="text"
-                value={change}
-                onChange={handleChange}
-                onKeyPress={e => onEnter(e)}
-              />
-            </span>
-            <div ref={bottom} style={{ float:"left", clear: "both" }}/>
-          </div>
+                  <div ref={bottom} style={{ float:"left", clear: "both" }}/>
+                </div>
+              )
+            }
+          })()}
         </Terminal>
       </div>
     </div>

@@ -3,6 +3,8 @@
 @tailwind utilities;
 html,
 body {
+  background-image: url('/background.png');
+  background-size: cover;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -21,4 +23,11 @@ a {
 .container {
   max-width: 1024px;
   caret-color: #06F108;
+}
+@keyframes blink{
+  0% {opacity:0.5;}
+  100% {opacity:1;}
+}
+.blinking{
+  animation:blink 1s ease-in-out infinite alternate;
 }

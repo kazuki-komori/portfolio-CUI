@@ -7,7 +7,7 @@ export const Info: FC = () => {
       <section className="flex items-center justify-center">
         <RectBudge type={"info"}/>
         <span className="text-sm font-medium">
-          現在建築中です。 バグやアイデアは
+          現在建築中です&#x1f528; バグやアイデアは
           <a href="https://github.com/kazuki-komori/portfolio-CUI/issues" className="text-lg text-blue-300 font-semibold" target="_blank"> こちら </a>
           にドシドシお願いします。
         </span>
