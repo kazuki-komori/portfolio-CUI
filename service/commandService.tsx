@@ -3,6 +3,8 @@ import {Links} from "../src/components/command/links"
 import {Ls} from "../src/components/command/ls"
 import {Profile} from "../src/components/command/profile";
 import {Neko} from "../src/components/command/neko";
+import {Npm} from "../src/components/command/npm";
+import {useHistory} from "react-router-dom"
 
 interface product {name: string, description: string, link: string}
 
@@ -33,6 +35,10 @@ export class CommandService {
     }
     if (command[0] === "cd" && command.length <= 2) {
       return this.Cd(ls, command)
+    }
+    // npmコマンド
+    if (command[0] === "npm" && command.length <= 3) {
+      return this.Npm(command)
     }
     // 隠しコマンド
     if (command[0] === "neko" && command.length == 1) {
@@ -69,6 +75,29 @@ export class CommandService {
         <p className="pb-1">{`No such file or directory...`}</p>
       )
     }
+  }
+
+  Npm = (commands: string[]) => {
+    if (commands[2] === "twitter") {
+      this.npmRun("https://twitter.com/D_kazuyan")
+    }
+    else if (commands[2] === "github") {
+      this.npmRun("https://github.com/kazuki-komori")
+    }
+    else {
+      return (
+        <p className="pb-1">{`npm WARN \`${commands.join(" ")}\` called with no arguments...`}</p>
+      )
+    }
+    return (
+      <Npm commands={commands}/>
+    )
+  }
+
+  npmRun = (url: string) => {
+    setTimeout(() => {
+      window.open(url, "_blank")
+    }, 1000)
   }
 
   Profile = () => {

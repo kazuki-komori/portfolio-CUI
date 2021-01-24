@@ -23,7 +23,7 @@ export const Loader: FC<Props> = (props: Props) => {
   }
 
   useEffect(() => {
-    setWidth(Math.floor(window.innerWidth/32))
+    setWidth(Math.floor(window.innerWidth/40))
     if (loader.length !== width) {
       load()
     } else {
