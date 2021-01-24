@@ -15,7 +15,7 @@ export const Info: FC = () => {
       <section className="flex items-center justify-center">
         <RectBudge type={"update"}/>
         <span className="text-sm font-medium">
-          cd コマンドを修正, アップデートしました。 "cd ../" で移動できるようになりました。
+          npm コマンドを追加しました。 npm run twitter or github で 各種ページに飛べます。
         </span>
       </section>
     </div>

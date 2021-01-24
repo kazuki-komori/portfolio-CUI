@@ -95,7 +95,7 @@ const Home: FC = () => {
               return (
                 <div className="relative">
                   <div className="py-3">
-                    <span className="block text-sm">last updated: 2021/1/22 10:30</span>
+                    <span className="block text-sm">last updated: 2021/1/25 12:30</span>
                     <span className="block sm:text-xl text-sm">ようこそ、kazuyanのポートフォリオへ</span>
                   </div>
                   <ActiveCommand/>
